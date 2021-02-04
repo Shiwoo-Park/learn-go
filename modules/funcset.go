@@ -5,9 +5,17 @@ import (
 	"strings"
 )
 
+// Multiply documentation comes here for this function
 func Multiply(a, b int) int {
 	return a * b
 }
+
+/*
+LenAndUpper desc title
+
+multi-lined comment looks like this.
+it has multiple return value
+*/
 func LenAndUpper(name string) (int, string) {
 	return len(name), strings.ToUpper(name)
 }

@@ -44,4 +44,8 @@ func main() {
 	fmt.Println("GetScoreByGrade('c'):", modules.GetScoreByGrade("c"))
 	fmt.Println("GetScoreByGrade('k'):", modules.GetScoreByGrade("k"))
 
+	a := 2
+	b := a
+	a = 10
+	fmt.Println(a, b)
 }
