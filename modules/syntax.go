@@ -81,3 +81,47 @@ func GetScoreByGrade(grade string) int {
 	}
 	return 50
 }
+func PlayWithPointer() {
+	fmt.Println("=== PlayWithPointer !!! ===")
+
+	// * : look through the address
+	// & : get memory address
+	a := 2
+	b := a // copy value
+	a = 10
+	c := 5
+	fmt.Println("a, b, c:", a, b, c)
+
+	// shows memory address
+	fmt.Println("&a, &b, &c:", &a, &b, &c)
+
+	// follow memory address
+	a_addr := &a
+	fmt.Println("*a_addr:", *a_addr)
+	a = 20
+	fmt.Println("*a_addr:", *a_addr)
+	*a_addr = 30
+	fmt.Println("a:", a)
+}
+
+func PlayWithArray() {
+	// Array (fixed size)
+	names := [5]string{"silva", "sun", "matt"}
+	names[3] = "david"
+	fmt.Println("names:", names)
+
+	// Mutable Array
+	grades := []int{87, 66, 99, 45}
+	grades = append(grades, 77)
+	fmt.Println("grades:", grades)
+}
+
+func PlayWithMap() {
+	mymap := map[string]string{"city": "jeonju", "name": "nico", "age": "25"}
+	mymap["height"] = "177cm"
+	fmt.Println(mymap)
+
+	for k, v := range mymap {
+		fmt.Println(k, ": ", v)
+	}
+}
