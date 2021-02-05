@@ -16,10 +16,14 @@
 - Project entrypoint
   * Go specifically looking for `main()` under `package main` in `main.go` file for entry point
   * main.go exists only for projects which want to be compiled.
+- The MAIN reason we learn about Go is
+  * when you want to resolve repeating independent jobs fast
+  * when you need concurrency with robust code and easy implementation
 
 
 ## ETC
-- Go built-in package is very huge and has a lot of useful functions. [take look!](https://golang.org/pkg/)
+- Go [built-in packages](https://golang.org/pkg/) are very huge and has a lot of useful functions.
+- Go [Documentation](https://golang.org/doc/)
 
 
 ## Commands

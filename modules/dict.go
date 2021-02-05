@@ -1,4 +1,4 @@
-package banking
+package modules
 
 import (
 	"errors"
@@ -16,6 +16,7 @@ var (
 
 // Search for key and return value
 func (d Dictionary) Search(key string) (string, error) {
+	//
 	val, exists := d[key]
 	if exists {
 		return val, nil
