@@ -2,13 +2,13 @@ package main
 
 import (
 	"fmt"
+	"log"
 
+	"github.com/shiwoo-park/learngo/banking"
 	"github.com/shiwoo-park/learngo/modules"
 )
 
-func main() {
-	fmt.Println("START LEAN GO !!!!!")
-
+func learnBasics() {
 	// Public/Private, Constant, Variable
 	modules.ExamplePublic()
 	modules.ExampleConstant()
@@ -55,4 +55,57 @@ func main() {
 
 	// Struct
 	modules.PlayWithStruct()
+}
+
+func bankingProject() {
+	silvaAccount := banking.NewAccount("silva")
+	silvaAccount.Balance()
+
+	silvaAccount.Deposit(10)
+	// this would automatically call String()
+	fmt.Println(silvaAccount)
+
+	silvaAccount.Withdraw(5)
+	fmt.Println(silvaAccount)
+
+	err := silvaAccount.Withdraw(20)
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+}
+
+func dicTest() {
+	mydic := banking.Dictionary{"first": "First word"}
+
+	// == Search ==
+	// success
+	val1, _ := mydic.Search("first")
+	fmt.Println("Found !!!", val1)
+
+	// error
+	_, err2 := mydic.Search("second")
+	if err2 != nil {
+		log.Println(err2)
+	}
+
+	mydic.Add("second", "This is second")
+	mydic.Add("third", "This is third")
+	err := mydic.Add("first", "new first")
+	if err != nil {
+		log.Println(err)
+	}
+
+	mydic.Update("first", "new new first")
+	mydic.Delete("third")
+	mydic.Delete("forth") // ignore
+
+	fmt.Println(mydic)
+}
+
+func main() {
+	fmt.Println("START LEAN GO !!!!!")
+	// learnBasics()
+	// bankingProject()
+	dicTest()
 }
