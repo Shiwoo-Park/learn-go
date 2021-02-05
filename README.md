@@ -19,6 +19,18 @@
 - The MAIN reason we learn about Go is
   * when you want to resolve repeating independent jobs fast
   * when you need concurrency with robust code and easy implementation
+- Go-routine
+  * put `go` in front of the function call
+  * Control flow just skip the go routine ()
+  * You can use it if you want to execute the funciton asyncronously
+  * Go-routine can alive only while main function(=process) is running
+  * Main function do not wait for go routine
+- Channel
+  * Communication method between go-routine and main()
+  * Communication method between go-routine and another go-routine
+  * We can send a message to channel in inside of function `c <- sendingMsg`
+  * And We can receive a messsage send from channel by blocking operation `receivedMsg := <-c`
+  * If we use blocking operation when there's no message in channel, the main function experience deadlock and we can't have any clue about it. SO BECAREFUL WHEN YOU USE IT !!!
 
 
 ## ETC
