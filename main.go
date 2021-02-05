@@ -43,11 +43,10 @@ func main() {
 		go isSexy(person, c)
 	}
 
-	fmt.Println("Waiting . . .")
-	// wait for 1 message by channel (blocking operation)
-	resultOne := <-c
-	resultTwo := <-c
-	fmt.Println("Received: ", resultOne)
-	fmt.Println("Received: ", resultTwo)
-	// time.Sleep(time.Second * 10)
+	fmt.Println("Waiting for message  ...")
+	lenPeople := len(people)
+	for i := 0; i < lenPeople; i++ {
+		// wait for 1 message by channel (blocking operation)
+		fmt.Println("Received: ", <-c)
+	}
 }
