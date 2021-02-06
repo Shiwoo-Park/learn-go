@@ -55,7 +55,7 @@ func LearnBasics() {
 	PlayWithStruct()
 }
 
-func DicTest() {
+func DicTypeTest() {
 	mydic := Dictionary{"first": "First word"}
 
 	// == Search ==

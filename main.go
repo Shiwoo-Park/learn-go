@@ -2,23 +2,12 @@ package main
 
 import (
 	"fmt"
-	"time"
+
+	"github.com/shiwoo-park/learngo/jobscrapper"
 )
 
-func sexyCount(person string) {
-	for i := 0; i < 10; i++ {
-		fmt.Println(person, "is sexy - ", i)
-		time.Sleep(time.Second)
-	}
-}
-
-/*
-
- */
-func isSexy(person string, c chan string) {
-	time.Sleep(time.Second * 5)
-	// send message through channel
-	c <- "sexy " + person
+type BigStruct struct {
+	Data [10]byte
 }
 
 func main() {
@@ -26,27 +15,17 @@ func main() {
 
 	// #1 ---- Theory ----
 	// modules.LearnBasics()
+	// modules.StrFormat()
 
 	// #2 ---- Bank & Dict Project ----
 	// banking.BankingProject()
-	// modules.DicTest()
+	// modules.DicTypeTest()
 
 	// #3 ---- URL Checker & Go Routine ----
 	// urlcheck.CheckV1()
-	people := [2]string{"silva", "nico"}
+	// modules.ExperienceChannelAndGoRoutine()
+	// urlcheck.CheckV2()
 
-	// declare channel
-	// - write the data type which channle will contain
-	c := make(chan string)
-	for _, person := range people {
-		// go sexyCount(person)
-		go isSexy(person, c)
-	}
-
-	fmt.Println("Waiting for message  ...")
-	lenPeople := len(people)
-	for i := 0; i < lenPeople; i++ {
-		// wait for 1 message by channel (blocking operation)
-		fmt.Println("Received: ", <-c)
-	}
+	// #4 ---- Job Scrapper ----
+	jobscrapper.ExampleScrape()
 }

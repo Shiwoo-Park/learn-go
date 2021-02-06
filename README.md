@@ -26,11 +26,13 @@
   * Go-routine can alive only while main function(=process) is running
   * Main function do not wait for go routine
 - Channel
+  * We need to define the type of data send through the channel
   * Communication method between go-routine and main()
   * Communication method between go-routine and another go-routine
   * We can send a message to channel in inside of function `c <- sendingMsg`
   * And We can receive a messsage send from channel by blocking operation `receivedMsg := <-c`
   * If we use blocking operation when there's no message in channel, the main function experience deadlock and we can't have any clue about it. SO BECAREFUL WHEN YOU USE IT !!!
+  * If we want to use some func as just producer (`for only send msg`) we can declare channel argument using `chan<-`
 
 
 ## ETC
