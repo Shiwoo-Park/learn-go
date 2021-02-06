@@ -11,6 +11,7 @@ func LearnBasics() {
 	ExamplePublic()
 	ExampleConstant()
 	ExampleVariable()
+	ExampleList()
 
 	// Function - part1
 	fmt.Println(Multiply(23, 56))

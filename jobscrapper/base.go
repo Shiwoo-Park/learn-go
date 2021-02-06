@@ -68,8 +68,14 @@ func ExampleScrape() {
 		go visitPage(i, c)
 	}
 
+	var jobs []*JobInfo
 	for i := 0; i < pageCount*10; i++ {
-		fmt.Printf("%+v\n\n", <-c)
+		jobInfo := <-c
+		jobs = append(jobs, jobInfo)
+	}
+
+	for i := 0; i < len(jobs); i++ {
+		fmt.Printf("%+v\n\n", jobs[i])
 	}
 
 }
