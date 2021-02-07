@@ -94,5 +94,6 @@ func ExampleScrape() {
 	}
 
 	writeToCsv(jobs)
-	fmt.Println("Extract Jobs Done !!! (", pageCount, " pages, ", pageCount*10, " jobs)")
+
+	fmt.Printf("Extract Jobs Done !!! (%d pages, %d jobs)", pageCount, pageCount*10)
 }
