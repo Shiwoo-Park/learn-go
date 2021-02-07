@@ -28,4 +28,5 @@ func main() {
 
 	// #4 ---- Job Scrapper ----
 	jobscrapper.ExampleScrape()
+
 }

@@ -3,6 +3,7 @@ package jobscrapper
 import (
 	"fmt"
 	"net/http"
+	"os"
 	"strconv"
 	"strings"
 
@@ -46,6 +47,22 @@ func visitPage(page int, c chan *JobInfo) {
 	})
 }
 
+func writeToCsv(jobInfoList []*JobInfo) {
+	filePath := "resources/jobinfos.csv"
+	f, err := os.Create(filePath)
+	modules.HandlelError(err)
+	defer f.Close()
+
+	f.WriteString("id\ttitle\tlocation\tsalary\tsummary\n")
+	for _, jobInfo := range jobInfoList {
+		jobInfoStr := fmt.Sprintf(
+			"%s\t%s\t%s\t%s\t%s\n",
+			jobInfo.id, jobInfo.title, jobInfo.location, jobInfo.salary, jobInfo.summary,
+		)
+		f.WriteString(jobInfoStr)
+	}
+}
+
 func ExampleScrape() {
 	// Request the HTML page.
 	res, err := http.Get(baseURL)
@@ -74,8 +91,9 @@ func ExampleScrape() {
 		jobs = append(jobs, jobInfo)
 	}
 
-	for i := 0; i < len(jobs); i++ {
-		fmt.Printf("%+v\n\n", jobs[i])
-	}
+	writeToCsv(jobs)
+	// for i := 0; i < len(jobs); i++ {
+	// 	fmt.Printf("%+v\n\n", jobs[i])
+	// }
 
 }
