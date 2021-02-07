@@ -53,13 +53,15 @@ func writeToCsv(jobInfoList []*JobInfo) {
 	modules.HandlelError(err)
 	defer f.Close()
 
-	f.WriteString("id\ttitle\tlocation\tsalary\tsummary\n")
+	_, err = f.WriteString("link\ttitle\tlocation\tsalary\tsummary\n")
+	modules.HandlelError(err)
 	for _, jobInfo := range jobInfoList {
 		jobInfoStr := fmt.Sprintf(
-			"%s\t%s\t%s\t%s\t%s\n",
+			"https://kr.indeed.com/viewjob?jk=%s\t%s\t%s\t%s\t%s\n",
 			jobInfo.id, jobInfo.title, jobInfo.location, jobInfo.salary, jobInfo.summary,
 		)
-		f.WriteString(jobInfoStr)
+		_, err := f.WriteString(jobInfoStr)
+		modules.HandlelError(err)
 	}
 }
 
@@ -92,8 +94,5 @@ func ExampleScrape() {
 	}
 
 	writeToCsv(jobs)
-	// for i := 0; i < len(jobs); i++ {
-	// 	fmt.Printf("%+v\n\n", jobs[i])
-	// }
-
+	fmt.Println("Extract Jobs Done !!! (", pageCount, " pages, ", pageCount*10, " jobs)")
 }
