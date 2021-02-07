@@ -4,15 +4,18 @@
 
 ## What I learned about Go
 
-- Use `snake_case` to file name (ex) `some_util.go`
-- Use `PascalCase` or `camelCase` to all kinds of element declaration in code
+- Code convention
+  * Use `snake_case` to file name (ex) `some_util.go`
+  * Use `PascalCase` or `camelCase` to all kinds of element declaration in code
 - Public & Private rule
   * It totally depends on how we `name` the element
   * `PascalCase`: public (= exported) / `camelCase`: private
   * This rule applies to the name of `variable`, `function`, `struct`, `key of struct`
-- Go doesn't have package manager like pip in python or npm in Node
+- Organizing Go modules
+  * Go doesn't have package manager like pip in python or npm in Node
   * So you need to organize all external package in some custom directory
-  * you can organize dir like: `~/go/src/github.com/USER_ID/REPO`
+  * You can organize dir like: `~/go/src/github.com/USER_ID/REPO`
+  * You can use `go mod` command and refer to [this](https://blog.golang.org/using-go-modules) document
 - Project entrypoint
   * Go specifically looking for `main()` under `package main` in `main.go` file for entry point
   * main.go exists only for projects which want to be compiled.
@@ -43,5 +46,10 @@
 ## Commands
 
 ```bash
+// run main func
 go run main.go
+
+// go module manage
+go mod init
+go mod tidy
 ```

@@ -5,7 +5,6 @@ import (
 	"net/http"
 	"os"
 	"strconv"
-	"strings"
 
 	"github.com/PuerkitoBio/goquery"
 	"github.com/shiwoo-park/learngo/modules"
@@ -19,15 +18,8 @@ type JobInfo struct {
 	summary  string
 }
 
-var baseURL = "https://kr.indeed.com/jobs?q=%EA%B0%9C%EB%B0%9C%EC%9E%90&l=%ED%8C%90%EA%B5%90"
-
-func cleanString(s string) string {
-	txtArray := strings.Fields(strings.TrimSpace(s))
-	return strings.Join(txtArray, " ")
-}
-
-func visitPage(page int, c chan *JobInfo) {
-	pageURL := baseURL + "&start=" + strconv.Itoa(page*10)
+func visitPage(url string, page int, c chan<- *JobInfo) {
+	pageURL := url + "&start=" + strconv.Itoa(page*10)
 
 	fmt.Println("visitPage:", pageURL)
 	res, err := http.Get(pageURL)
@@ -35,16 +27,32 @@ func visitPage(page int, c chan *JobInfo) {
 	modules.HandlelErrorForResponse(res, err)
 	doc, err := goquery.NewDocumentFromReader(res.Body)
 	modules.HandlelError(err)
+
+	var extractChan = make(chan *JobInfo)
+	extractCount := 0
 	doc.Find("#pageContent .jobsearch-SerpJobCard").Each(func(i int, s *goquery.Selection) {
-		attrVal, _ := s.Attr("data-jk")
-		jobID := attrVal
-		title := cleanString(s.Find(".title>a").Text())
-		location := cleanString(s.Find(".sjcl").Text())
-		salary := cleanString(s.Find(".salaryText").Text())
-		summary := cleanString(s.Find(".summary").Text())
-		jobInfo := JobInfo{id: jobID, title: title, location: location, salary: salary, summary: summary}
-		c <- &jobInfo
+		go extractJob(s, extractChan)
+		extractCount += 1
 	})
+
+	for i := 0; i < extractCount; i++ {
+		c <- <-extractChan
+
+		// above equals to logic below (receive message and send it directly)
+		// extractedJob := <-extractChan
+		// c <- extractedJob
+	}
+}
+
+func extractJob(s *goquery.Selection, c chan *JobInfo) {
+	attrVal, _ := s.Attr("data-jk")
+	jobID := attrVal
+	title := modules.CleanString(s.Find(".title>a").Text())
+	location := modules.CleanString(s.Find(".sjcl").Text())
+	salary := modules.CleanString(s.Find(".salaryText").Text())
+	summary := modules.CleanString(s.Find(".summary").Text())
+	jobInfo := JobInfo{id: jobID, title: title, location: location, salary: salary, summary: summary}
+	c <- &jobInfo
 }
 
 func writeToCsv(jobInfoList []*JobInfo) {
@@ -65,8 +73,10 @@ func writeToCsv(jobInfoList []*JobInfo) {
 	}
 }
 
-func ExampleScrape() {
+// Scrape indeed site by a term provided
+func Scrape(term string) {
 	// Request the HTML page.
+	var baseURL = "https://kr.indeed.com/jobs?q=" + term + "&l=%ED%8C%90%EA%B5%90"
 	res, err := http.Get(baseURL)
 	defer res.Body.Close()
 	modules.HandlelErrorForResponse(res, err)
@@ -84,7 +94,7 @@ func ExampleScrape() {
 
 	var c = make(chan *JobInfo)
 	for i := 0; i < pageCount; i++ {
-		go visitPage(i, c)
+		go visitPage(baseURL, i, c)
 	}
 
 	var jobs []*JobInfo
