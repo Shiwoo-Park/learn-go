@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"os"
 	"strings"
 
 	"github.com/labstack/echo"
@@ -55,8 +56,14 @@ func home(c echo.Context) error {
 	// return c.String(http.StatusOK, "hello world !!!")
 }
 
+// scrape by term and download csv file
 func scrape(c echo.Context) error {
+	defer os.Remove("resources/jobinfos.csv")
+
 	term := strings.ToLower(modules.CleanString(c.FormValue("term")))
 	jobscrapper.Scrape(term)
-	return c.File("resources/jobinfos.csv")
+
+	// both act in the same way
+	return c.Attachment("resources/jobinfos.csv", "jobinfos.csv")
+	// return c.File("resources/jobinfos.csv")
 }

@@ -4,6 +4,17 @@
 
 ## What I learned about Go
 
+- Project structure
+```
+~/go/src/github.com/username/myproj/
+  main.go
+  mypackage1/
+    mypackage1.go
+    util.go
+  mypackage2/
+    mypackage2.go
+    types.go
+```
 - Code convention
   * Use `snake_case` to file name (ex) `some_util.go`
   * Use `PascalCase` or `camelCase` to all kinds of element declaration in code
@@ -39,8 +50,11 @@
 
 
 ## ETC
+
 - Go [built-in packages](https://golang.org/pkg/) are very huge and has a lot of useful functions.
 - Go [Documentation](https://golang.org/doc/)
+- Web minimal framework [Echo](https://echo.labstack.com/)
+- Web full-stack framework [buffalo](https://gobuffalo.io/en/)
 
 
 ## Commands
