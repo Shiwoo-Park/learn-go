@@ -1,6 +1,6 @@
 # Learning Go with nomadcoder
 
-[Lecture Link](https://nomadcoders.co/go-for-beginners/lectures/1499)
+[Lecture Link](https://nomadcoders.co/go-for-beginners/lobby)
 
 ## What I learned about Go
 
